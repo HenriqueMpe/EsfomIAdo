@@ -1,6 +1,6 @@
 'use client';
 
-import { Users, Utensils, AlertCircle, TrendingUp, Leaf, Heart, Activity } from 'lucide-react';
+import { Users, Utensils, AlertCircle, TrendingUp, Heart, Activity } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Modal } from '@/components/Modal';
@@ -75,20 +75,9 @@ export default function DashboardPage() {
 
     return (
         <div className="space-y-8 p-8">
-            <div className="flex items-start justify-between">
-                <div>
-                    <h1 className="text-4xl font-heading font-bold text-charcoal-900 mb-2">Bem-vindo de volta!</h1>
-                    <p className="text-lg text-charcoal-500">Aqui esta um resumo da sua pratica nutricional.</p>
-                </div>
-                <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-2xl shadow-soft border border-charcoal-100">
-                    <div className="w-10 h-10 bg-gradient-to-br from-sage-400 to-sage-500 rounded-xl flex items-center justify-center">
-                        <Leaf className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                        <p className="text-sm text-charcoal-500">Dr. Nutri</p>
-                        <p className="text-xs text-charcoal-400">Nutricionista</p>
-                    </div>
-                </div>
+            <div>
+                <h1 className="text-4xl font-heading font-bold text-charcoal-900 mb-2">Bem-vindo de volta!</h1>
+                <p className="text-lg text-charcoal-500">Aqui esta um resumo da sua pratica nutricional.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
