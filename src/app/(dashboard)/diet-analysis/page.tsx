@@ -16,7 +16,7 @@ export default function DietAnalysisPage() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 max-w-full">
             <div>
                 <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-2">
                     <FileText className="w-8 h-8 text-blue-500" />

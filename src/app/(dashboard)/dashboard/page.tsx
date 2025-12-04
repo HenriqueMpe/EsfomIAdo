@@ -74,7 +74,7 @@ export default function DashboardPage() {
     const patient = selectedPatient !== null ? patients[selectedPatient] : null;
 
     return (
-        <div className="space-y-8 p-8">
+        <div className="space-y-8 max-w-full">
             <div>
                 <h1 className="text-4xl font-heading font-bold text-charcoal-900 mb-2">Bem-vindo de volta!</h1>
                 <p className="text-lg text-charcoal-500">Aqui esta um resumo da sua pratica nutricional.</p>
