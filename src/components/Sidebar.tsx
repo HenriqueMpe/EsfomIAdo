@@ -2,69 +2,70 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-    LayoutDashboard,
-    Users,
-    Utensils,
-    FileText,
-    RefreshCw,
-    TrendingUp,
-    LogOut
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const menuItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/patients', label: 'Pacientes', icon: Users },
-    { href: '/diet-generator', label: 'Gerador de Dietas', icon: Utensils },
-    { href: '/diet-analysis', label: 'Analise de Dieta', icon: FileText },
-    { href: '/substitutions', label: 'Substituicoes', icon: RefreshCw },
-    { href: '/evolution', label: 'Evolucao', icon: TrendingUp },
-];
+import { Home, Users, Utensils, BarChart3, RefreshCw, TrendingUp, Leaf } from 'lucide-react';
 
 export function Sidebar() {
     const pathname = usePathname();
 
+    const links = [
+        { href: '/dashboard', label: 'Dashboard', icon: Home },
+        { href: '/patients', label: 'Pacientes', icon: Users },
+        { href: '/diet-generator', label: 'Gerar Dieta', icon: Utensils },
+        { href: '/diet-analysis', label: 'Analisar Dieta', icon: BarChart3 },
+        { href: '/substitutions', label: 'Substituicoes', icon: RefreshCw },
+        { href: '/evolution', label: 'Evolucao', icon: TrendingUp },
+    ];
+
     return (
-        <aside className="w-64 bg-white border-r border-border h-screen flex flex-col fixed left-0 top-0 z-10">
-            <div className="p-6 border-b border-border">
-                <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-                    <Utensils className="w-8 h-8" />
-                    EsfomIAdo
-                </h1>
-                <p className="text-xs text-muted-foreground mt-1">Nutricao Inteligente</p>
+        <aside className="fixed left-0 top-0 w-72 min-h-screen bg-gradient-to-b from-sage-700 to-sage-800 text-white p-6 shadow-soft-lg">
+            <div className="mb-10">
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-12 h-12 bg-gradient-to-br from-terracotta-400 to-terracotta-500 rounded-2xl flex items-center justify-center shadow-md">
+                        <Leaf className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-heading font-bold text-white">EsfomIAdo</h1>
+                        <p className="text-sage-200 text-sm font-medium">Nutricao Inteligente</p>
+                    </div>
+                </div>
             </div>
 
-            <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-                {menuItems.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = pathname === item.href;
+            <nav className="space-y-2">
+                {links.map((link) => {
+                    const Icon = link.icon;
+                    const isActive = pathname === link.href;
+
                     return (
                         <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                                isActive
-                                    ? "bg-primary/10 text-primary-foreground"
-                                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                            )}
+                            key={link.href}
+                            href={link.href}
+                            className={`
+                flex items-center gap-3 px-4 py-3.5 rounded-2xl font-medium transition-all duration-200
+                ${isActive
+                                    ? 'bg-white text-sage-700 shadow-md'
+                                    : 'text-sage-100 hover:bg-sage-600/50 hover:text-white'
+                                }
+              `}
                         >
-                            <Icon className="w-5 h-5" />
-                            {item.label}
+                            <Icon className={`w-5 h-5 ${isActive ? 'text-sage-600' : ''}`} />
+                            <span>{link.label}</span>
                         </Link>
                     );
                 })}
             </nav>
 
-            <div className="p-4 border-t border-border">
-                <Link
-                    href="/login"
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 transition-colors"
-                >
-                    <LogOut className="w-5 h-5" />
-                    Sair
-                </Link>
+            <div className="absolute bottom-6 left-6 right-6">
+                <div className="bg-sage-600/30 backdrop-blur-sm rounded-2xl p-4 border border-sage-500/30">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-cream-300 to-cream-400 rounded-full flex items-center justify-center text-sage-800 font-bold text-lg">
+                            N
+                        </div>
+                        <div>
+                            <p className="font-semibold text-white text-sm">Dr. Nutri</p>
+                            <p className="text-sage-200 text-xs">Nutricionista</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </aside>
     );

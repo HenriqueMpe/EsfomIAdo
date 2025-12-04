@@ -1,34 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
 @import "tailwindcss";
 
-:root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #4ade80; /* Green 400 */
-  --primary-foreground: #052e16; /* Green 950 */
-  --secondary: #e2e8f0; /* Slate 200 */
-  --secondary-foreground: #1e293b; /* Slate 800 */
-  --muted: #64748b; /* Slate 500 */
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --border: #e2e8f0;
+@theme {
+  /* Natural Color Palette */
+  --color-sage-50: #f6f8f4;
+  --color-sage-100: #e8ede3;
+  --color-sage-200: #d1dbc7;
+  --color-sage-300: #afc19e;
+  --color-sage-400: #8ba876;
+  --color-sage-500: #6b8e5a;
+  --color-sage-600: #547145;
+  --color-sage-700: #425938;
+  --color-sage-800: #37492f;
+  --color-sage-900: #2e3d28;
+
+  --color-terracotta-50: #fef6f3;
+  --color-terracotta-100: #fdeae3;
+  --color-terracotta-200: #fbd4c6;
+  --color-terracotta-300: #f7b49a;
+  --color-terracotta-400: #f28b6d;
+  --color-terracotta-500: #e96947;
+  --color-terracotta-600: #d54d2e;
+  --color-terracotta-700: #b23d24;
+  --color-terracotta-800: #933523;
+  --color-terracotta-900: #792f21;
+
+  --color-cream-50: #fdfcfa;
+  --color-cream-100: #faf7f2;
+  --color-cream-200: #f5ede2;
+  --color-cream-300: #ecdfc9;
+  --color-cream-400: #e0caa8;
+  --color-cream-500: #d4b58d;
+  --color-cream-600: #c19e75;
+  --color-cream-700: #a68360;
+  --color-cream-800: #886a51;
+  --color-cream-900: #6f5744;
+
+  --color-charcoal-50: #f7f7f6;
+  --color-charcoal-100: #e4e4e2;
+  --color-charcoal-200: #c9c9c5;
+  --color-charcoal-300: #a8a8a2;
+  --color-charcoal-400: #88887f;
+  --color-charcoal-500: #6f6f66;
+  --color-charcoal-600: #5a5a52;
+  --color-charcoal-700: #4a4a44;
+  --color-charcoal-800: #3f3f3a;
+  --color-charcoal-900: #373733;
+
+  --font-family-sans: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-heading: 'Poppins', sans-serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --font-sans: var(--font-inter);
+@layer base {
+  body {
+    @apply bg-cream-50 text-charcoal-800;
+    font-family: var(--font-family-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-family-heading);
+    @apply text-charcoal-900;
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-sage-600 hover:bg-sage-700 text-white font-semibold px-6 py-3 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-6 py-3 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply border-2 border-sage-600 text-sage-700 hover:bg-sage-50 font-semibold px-6 py-3 rounded-2xl transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-3xl shadow-sm border border-charcoal-100 p-6 transition-all duration-200 hover:shadow-md;
+  }
+
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-cream-50 rounded-3xl shadow-sm border border-charcoal-100 p-6;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border-2 border-charcoal-200 focus:border-sage-500 focus:ring-2 focus:ring-sage-200 outline-none transition-all duration-200 bg-white;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-sage {
+    @apply bg-sage-100 text-sage-700;
+  }
+
+  .badge-terracotta {
+    @apply bg-terracotta-100 text-terracotta-700;
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden rounded-3xl p-6 border-2 transition-all duration-300 hover:scale-105;
+  }
 }

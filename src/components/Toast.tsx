@@ -1,7 +1,7 @@
 'use client';
 
-import { CheckCircle, X } from 'lucide-react';
 import { useEffect } from 'react';
+import { CheckCircle2 } from 'lucide-react';
 
 interface ToastProps {
     message: string;
@@ -22,13 +22,12 @@ export function Toast({ message, isVisible, onClose }: ToastProps) {
     if (!isVisible) return null;
 
     return (
-        <div className="fixed bottom-4 right-4 z-50 animate-in slide-in-from-bottom-4 fade-in">
-            <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
-                <CheckCircle className="w-5 h-5" />
-                <span className="font-medium">{message}</span>
-                <button onClick={onClose} className="ml-2 hover:bg-green-600 p-1 rounded">
-                    <X className="w-4 h-4" />
-                </button>
+        <div className="fixed bottom-8 right-8 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+            <div className="bg-white border-2 border-sage-200 rounded-2xl shadow-soft-lg p-4 flex items-center gap-3 min-w-[300px]">
+                <div className="w-10 h-10 bg-sage-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="w-5 h-5 text-white" />
+                </div>
+                <p className="text-charcoal-800 font-medium flex-1">{message}</p>
             </div>
         </div>
     );

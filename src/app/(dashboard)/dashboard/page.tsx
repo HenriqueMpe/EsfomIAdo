@@ -1,6 +1,6 @@
 'use client';
 
-import { Users, Utensils, AlertCircle, TrendingUp } from 'lucide-react';
+import { Users, Utensils, AlertCircle, TrendingUp, Leaf, Heart, Activity } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Modal } from '@/components/Modal';
@@ -12,19 +12,16 @@ export default function DashboardPage() {
     const [selectedPatient, setSelectedPatient] = useState<number | null>(null);
 
     const patientCount = patients.length;
-    const dietCount = 15; // Mock count
+    const dietCount = 15;
 
-    // Calculate nutritional alerts based on patient data
     const getNutritionalAlerts = () => {
         let alerts = 0;
         patients.forEach(patient => {
             const bmi = patient.weight / ((patient.height / 100) ** 2);
-            // Alert if BMI is outside healthy range (18.5-24.9)
             if (bmi < 18.5 || bmi > 24.9) alerts++;
-            // Alert if weight history shows rapid changes
             if (patient.history.length >= 2) {
                 const recentChange = Math.abs(patient.history[patient.history.length - 1].weight - patient.history[patient.history.length - 2].weight);
-                if (recentChange > 3) alerts++; // More than 3kg change in a month
+                if (recentChange > 3) alerts++;
             }
         });
         return alerts;
@@ -48,32 +45,28 @@ export default function DashboardPage() {
             label: 'Pacientes Ativos',
             value: patientCount,
             icon: Users,
-            color: 'text-blue-600',
-            bg: 'bg-blue-100',
+            color: 'sage',
             trend: `${patientCount} cadastrados`
         },
         {
             label: 'Dietas Geradas',
             value: dietCount,
             icon: Utensils,
-            color: 'text-green-600',
-            bg: 'bg-green-100',
+            color: 'terracotta',
             trend: '+5% este mes'
         },
         {
             label: 'Alertas Nutricionais',
             value: getNutritionalAlerts(),
             icon: AlertCircle,
-            color: 'text-orange-600',
-            bg: 'bg-orange-100',
-            trend: 'IMC fora do ideal ou mudanca rapida'
+            color: 'cream',
+            trend: 'IMC fora do ideal'
         },
         {
             label: 'Media de Evolucao',
             value: `${calculateAverageWeightLoss()}kg`,
             icon: TrendingUp,
-            color: 'text-purple-600',
-            bg: 'bg-purple-100',
+            color: 'sage',
             trend: 'Media dos pacientes'
         }
     ];
@@ -81,84 +74,120 @@ export default function DashboardPage() {
     const patient = selectedPatient !== null ? patients[selectedPatient] : null;
 
     return (
-        <div className="space-y-8">
-            <div>
-                <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
-                <p className="text-slate-500 mt-2">Bem-vindo de volta, Dr. Nutri.</p>
+        <div className="space-y-8 p-8">
+            <div className="flex items-start justify-between">
+                <div>
+                    <h1 className="text-4xl font-heading font-bold text-charcoal-900 mb-2">Bem-vindo de volta!</h1>
+                    <p className="text-lg text-charcoal-500">Aqui esta um resumo da sua pratica nutricional.</p>
+                </div>
+                <div className="flex items-center gap-3 bg-white px-5 py-3 rounded-2xl shadow-soft border border-charcoal-100">
+                    <div className="w-10 h-10 bg-gradient-to-br from-sage-400 to-sage-500 rounded-xl flex items-center justify-center">
+                        <Leaf className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                        <p className="text-sm text-charcoal-500">Dr. Nutri</p>
+                        <p className="text-xs text-charcoal-400">Nutricionista</p>
+                    </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, index) => {
                     const Icon = stat.icon;
+                    const colorClasses = {
+                        sage: 'from-sage-50 to-sage-100 border-sage-200',
+                        terracotta: 'from-terracotta-50 to-terracotta-100 border-terracotta-200',
+                        cream: 'from-cream-50 to-cream-100 border-cream-200',
+                    };
+                    const iconClasses = {
+                        sage: 'bg-sage-500',
+                        terracotta: 'bg-terracotta-500',
+                        cream: 'bg-cream-500',
+                    };
+
                     return (
-                        <div key={index} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className={`p-3 rounded-lg ${stat.bg}`}>
-                                    <Icon className={`w-6 h-6 ${stat.color}`} />
+                        <div key={index} className={`stat-card bg-gradient-to-br ${colorClasses[stat.color as keyof typeof colorClasses]} border-2`}>
+                            <div className="flex items-start justify-between mb-4">
+                                <div className={`w-14 h-14 ${iconClasses[stat.color as keyof typeof iconClasses]} rounded-2xl flex items-center justify-center shadow-md`}>
+                                    <Icon className="w-7 h-7 text-white" />
                                 </div>
-                                <span className="text-xs font-medium text-slate-400 bg-slate-50 px-2 py-1 rounded-full">
+                                <span className="text-xs font-semibold text-charcoal-500 bg-white/70 px-3 py-1 rounded-full">
                                     {stat.trend}
                                 </span>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-800">{stat.value}</h3>
-                            <p className="text-sm text-slate-500">{stat.label}</p>
+                            <h3 className="text-4xl font-heading font-bold text-charcoal-900 mb-1">{stat.value}</h3>
+                            <p className="text-sm font-medium text-charcoal-600">{stat.label}</p>
                         </div>
                     );
                 })}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h2 className="text-lg font-semibold text-slate-800 mb-4">Proximas Consultas</h2>
-                    <div className="space-y-4">
+                <div className="card-gradient">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 bg-sage-500 rounded-xl flex items-center justify-center">
+                            <Activity className="w-5 h-5 text-white" />
+                        </div>
+                        <h2 className="text-xl font-heading font-semibold text-charcoal-900">Proximas Consultas</h2>
+                    </div>
+                    <div className="space-y-3">
                         {patients.slice(0, 3).map((p, i) => (
-                            <div key={i} className="flex items-center gap-4 p-3 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
-                                <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-medium">
+                            <div key={i} className="flex items-center gap-4 p-4 rounded-2xl hover:bg-white transition-all duration-200 cursor-pointer border border-transparent hover:border-sage-200">
+                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-terracotta-300 to-terracotta-400 flex items-center justify-center text-white font-heading font-bold text-lg shadow-sm">
                                     {p.name.charAt(0)}
                                 </div>
                                 <div className="flex-1">
-                                    <h4 className="font-medium text-slate-800">{p.name}</h4>
-                                    <p className="text-sm text-slate-500">Retorno - 14:00</p>
+                                    <h4 className="font-semibold text-charcoal-800">{p.name}</h4>
+                                    <p className="text-sm text-charcoal-500">Retorno - 14:00</p>
                                 </div>
                                 <button
                                     onClick={() => setSelectedPatient(i)}
-                                    className="text-sm text-green-600 font-medium hover:underline"
+                                    className="text-sm text-sage-600 font-semibold hover:text-sage-700 transition-colors"
                                 >
-                                    Ver ficha
+                                    Ver ficha ?
                                 </button>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                    <h2 className="text-lg font-semibold text-slate-800 mb-4">Atalhos Rapidos</h2>
+                <div className="card-gradient">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-10 h-10 bg-terracotta-500 rounded-xl flex items-center justify-center">
+                            <Heart className="w-5 h-5 text-white" />
+                        </div>
+                        <h2 className="text-xl font-heading font-semibold text-charcoal-900">Atalhos Rapidos</h2>
+                    </div>
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             onClick={() => router.push('/diet-generator')}
-                            className="p-4 rounded-lg border border-slate-200 hover:border-green-500 hover:bg-green-50 transition-all text-left group"
+                            className="p-6 rounded-2xl border-2 border-sage-200 hover:border-sage-400 hover:bg-sage-50 transition-all duration-200 text-left group"
                         >
-                            <Utensils className="w-6 h-6 text-slate-400 group-hover:text-green-600 mb-2" />
-                            <span className="block font-medium text-slate-700 group-hover:text-green-700">Nova Dieta</span>
+                            <Utensils className="w-8 h-8 text-sage-400 group-hover:text-sage-600 mb-3 transition-colors" />
+                            <span className="block font-heading font-semibold text-charcoal-800 group-hover:text-sage-700">Nova Dieta</span>
+                            <span className="block text-xs text-charcoal-500 mt-1">Gerar plano alimentar</span>
                         </button>
                         <button
                             onClick={() => router.push('/patients')}
-                            className="p-4 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group"
+                            className="p-6 rounded-2xl border-2 border-terracotta-200 hover:border-terracotta-400 hover:bg-terracotta-50 transition-all duration-200 text-left group"
                         >
-                            <Users className="w-6 h-6 text-slate-400 group-hover:text-blue-600 mb-2" />
-                            <span className="block font-medium text-slate-700 group-hover:text-blue-700">Novo Paciente</span>
+                            <Users className="w-8 h-8 text-terracotta-400 group-hover:text-terracotta-600 mb-3 transition-colors" />
+                            <span className="block font-heading font-semibold text-charcoal-800 group-hover:text-terracotta-700">Novo Paciente</span>
+                            <span className="block text-xs text-charcoal-500 mt-1">Cadastrar paciente</span>
                         </button>
                     </div>
                 </div>
             </div>
 
             {getNutritionalAlerts() > 0 && (
-                <div className="bg-orange-50 border border-orange-200 rounded-xl p-6">
+                <div className="bg-gradient-to-r from-terracotta-50 to-cream-50 border-2 border-terracotta-200 rounded-3xl p-6">
                     <div className="flex items-start gap-4">
-                        <AlertCircle className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
+                        <div className="w-12 h-12 bg-terracotta-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md">
+                            <AlertCircle className="w-6 h-6 text-white" />
+                        </div>
                         <div>
-                            <h3 className="font-semibold text-orange-900 mb-2">Alertas Nutricionais Detectados</h3>
-                            <p className="text-sm text-orange-800">
+                            <h3 className="font-heading font-semibold text-terracotta-900 mb-2 text-lg">Alertas Nutricionais Detectados</h3>
+                            <p className="text-charcoal-700 leading-relaxed">
                                 {getNutritionalAlerts()} paciente(s) com IMC fora da faixa ideal (18.5-24.9) ou mudanca de peso rapida (&gt;3kg/mes).
                                 Recomenda-se revisar os planos alimentares e acompanhamento.
                             </p>
@@ -175,36 +204,38 @@ export default function DashboardPage() {
                 {patient && (
                     <div className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <p className="text-sm text-slate-500">Idade</p>
-                                <p className="text-lg font-semibold">{patient.age} anos</p>
+                            <div className="bg-sage-50 p-4 rounded-2xl border border-sage-200">
+                                <p className="text-sm text-charcoal-600 font-medium">Idade</p>
+                                <p className="text-2xl font-heading font-bold text-charcoal-900">{patient.age} anos</p>
                             </div>
-                            <div>
-                                <p className="text-sm text-slate-500">Peso Atual</p>
-                                <p className="text-lg font-semibold">{patient.weight} kg</p>
+                            <div className="bg-terracotta-50 p-4 rounded-2xl border border-terracotta-200">
+                                <p className="text-sm text-charcoal-600 font-medium">Peso Atual</p>
+                                <p className="text-2xl font-heading font-bold text-charcoal-900">{patient.weight} kg</p>
                             </div>
-                            <div>
-                                <p className="text-sm text-slate-500">Altura</p>
-                                <p className="text-lg font-semibold">{patient.height} cm</p>
+                            <div className="bg-cream-50 p-4 rounded-2xl border border-cream-200">
+                                <p className="text-sm text-charcoal-600 font-medium">Altura</p>
+                                <p className="text-2xl font-heading font-bold text-charcoal-900">{patient.height} cm</p>
                             </div>
-                            <div>
-                                <p className="text-sm text-slate-500">IMC</p>
-                                <p className="text-lg font-semibold">
+                            <div className="bg-sage-50 p-4 rounded-2xl border border-sage-200">
+                                <p className="text-sm text-charcoal-600 font-medium">IMC</p>
+                                <p className="text-2xl font-heading font-bold text-charcoal-900">
                                     {(patient.weight / ((patient.height / 100) ** 2)).toFixed(1)}
                                 </p>
                             </div>
-                            <div>
-                                <p className="text-sm text-slate-500">Objetivo</p>
-                                <p className="text-lg font-semibold">{patient.goal}</p>
-                            </div>
                         </div>
+
+                        <div className="bg-gradient-to-br from-sage-50 to-cream-50 p-4 rounded-2xl border border-sage-200">
+                            <p className="text-sm text-charcoal-600 font-semibold mb-2">Objetivo</p>
+                            <p className="text-lg font-heading font-semibold text-sage-700">{patient.goal}</p>
+                        </div>
+
                         <div>
-                            <p className="text-sm text-slate-500 mb-2">Historico de Peso</p>
+                            <p className="text-sm text-charcoal-600 font-semibold mb-3">Historico de Peso</p>
                             <div className="space-y-2">
                                 {patient.history.map((entry, i) => (
-                                    <div key={i} className="flex justify-between p-2 bg-slate-50 rounded">
-                                        <span>{entry.date}</span>
-                                        <span className="font-semibold">{entry.weight} kg</span>
+                                    <div key={i} className="flex justify-between p-3 bg-cream-50 rounded-xl border border-cream-200">
+                                        <span className="text-charcoal-600">{entry.date}</span>
+                                        <span className="font-heading font-bold text-charcoal-900">{entry.weight} kg</span>
                                     </div>
                                 ))}
                             </div>

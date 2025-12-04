@@ -24,13 +24,13 @@ export default function EvolutionPage() {
         peso: entry.weight
     }));
 
-    const calculateWeightChange = () => {
-        if (weightData.length < 2) return 0;
+    const calculateWeightChange = (): string => {
+        if (weightData.length < 2) return '0.0';
         return (weightData[weightData.length - 1].peso - weightData[0].peso).toFixed(1);
     };
 
-    const calculateAverageWeight = () => {
-        if (weightData.length === 0) return 0;
+    const calculateAverageWeight = (): string => {
+        if (weightData.length === 0) return '0.0';
         const sum = weightData.reduce((acc, entry) => acc + entry.peso, 0);
         return (sum / weightData.length).toFixed(1);
     };
@@ -40,7 +40,7 @@ export default function EvolutionPage() {
     const isGoodProgress = isPositiveChange ? weightChange > 0 : weightChange < 0;
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 p-8">
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold text-slate-800 flex items-center gap-2">
