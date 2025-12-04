@@ -49,26 +49,50 @@ export default function Home() {
                     </div>
 
                     <div className="relative">
-                        <div className="absolute -inset-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-20 blur-3xl animate-pulse"></div>
-                        <div className="relative bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 rotate-2 hover:rotate-0 transition-transform duration-500">
-                            <div className="flex items-center gap-4 mb-6 border-b border-slate-100 pb-4">
-                                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                                    <Utensils className="w-6 h-6 text-green-600" />
+                        <div className="absolute -inset-4 bg-gradient-to-r from-sage-400 to-terracotta-400 rounded-3xl opacity-20 blur-2xl animate-pulse"></div>
+                        <div className="relative bg-white p-8 rounded-3xl shadow-2xl border-2 border-sage-200 hover:border-sage-400 transition-all duration-500 hover:scale-105">
+                            <div className="flex items-center gap-4 mb-6 pb-6 border-b-2 border-sage-100">
+                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-sage-500 to-sage-600 flex items-center justify-center shadow-lg">
+                                    <Utensils className="w-7 h-7 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-slate-800">Dieta Gerada</h3>
-                                    <p className="text-sm text-slate-500">Ha 2 segundos</p>
+                                    <h3 className="font-bold text-charcoal-900 text-lg">Dieta Personalizada</h3>
+                                    <p className="text-sm text-sage-600 font-medium">Gerada com IA em segundos</p>
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <div className="h-4 bg-slate-100 rounded w-3/4"></div>
-                                <div className="h-4 bg-slate-100 rounded w-1/2"></div>
-                                <div className="h-4 bg-slate-100 rounded w-full"></div>
-                                <div className="h-4 bg-slate-100 rounded w-5/6"></div>
+                                <div className="flex items-start gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-sage-500 mt-2"></div>
+                                    <div className="flex-1">
+                                        <div className="h-3 bg-gradient-to-r from-sage-100 to-transparent rounded w-3/4 mb-2"></div>
+                                        <div className="h-3 bg-gradient-to-r from-sage-100 to-transparent rounded w-1/2"></div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-terracotta-500 mt-2"></div>
+                                    <div className="flex-1">
+                                        <div className="h-3 bg-gradient-to-r from-terracotta-100 to-transparent rounded w-full mb-2"></div>
+                                        <div className="h-3 bg-gradient-to-r from-terracotta-100 to-transparent rounded w-4/5"></div>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-cream-500 mt-2"></div>
+                                    <div className="flex-1">
+                                        <div className="h-3 bg-gradient-to-r from-cream-200 to-transparent rounded w-2/3"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="mt-6 flex gap-2">
-                                <div className="h-8 bg-green-500 rounded-lg w-1/3"></div>
-                                <div className="h-8 bg-slate-100 rounded-lg w-1/3"></div>
+                            <div className="mt-6 pt-6 border-t-2 border-sage-100 flex gap-3">
+                                <div className="flex-1 h-10 bg-gradient-to-r from-sage-500 to-sage-600 rounded-xl shadow-md flex items-center justify-center">
+                                    <span className="text-white font-semibold text-sm">Gerar Dieta</span>
+                                </div>
+                                <div className="flex-1 h-10 bg-cream-100 rounded-xl flex items-center justify-center">
+                                    <span className="text-charcoal-600 font-medium text-sm">Exportar PDF</span>
+                                </div>
+                            </div>
+                            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-sage-600">
+                                <div className="w-2 h-2 bg-sage-500 rounded-full animate-pulse"></div>
+                                <span className="font-medium">IA processando...</span>
                             </div>
                         </div>
                     </div>
