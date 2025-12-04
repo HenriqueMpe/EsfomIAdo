@@ -64,21 +64,22 @@ export default function Home() {
                                 <div className="flex items-start gap-3">
                                     <div className="w-2 h-2 rounded-full bg-sage-500 mt-2"></div>
                                     <div className="flex-1">
-                                        <div className="h-3 bg-gradient-to-r from-sage-100 to-transparent rounded w-3/4 mb-2"></div>
-                                        <div className="h-3 bg-gradient-to-r from-sage-100 to-transparent rounded w-1/2"></div>
+                                        <p className="text-sm text-charcoal-700 font-medium mb-1">Cafe da Manha (7h)</p>
+                                        <p className="text-xs text-charcoal-500">2 ovos mexidos + 2 fatias de pao integral</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="w-2 h-2 rounded-full bg-terracotta-500 mt-2"></div>
                                     <div className="flex-1">
-                                        <div className="h-3 bg-gradient-to-r from-terracotta-100 to-transparent rounded w-full mb-2"></div>
-                                        <div className="h-3 bg-gradient-to-r from-terracotta-100 to-transparent rounded w-4/5"></div>
+                                        <p className="text-sm text-charcoal-700 font-medium mb-1">Almoco (12h)</p>
+                                        <p className="text-xs text-charcoal-500">150g frango grelhado + arroz integral + salada</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="w-2 h-2 rounded-full bg-cream-500 mt-2"></div>
                                     <div className="flex-1">
-                                        <div className="h-3 bg-gradient-to-r from-cream-200 to-transparent rounded w-2/3"></div>
+                                        <p className="text-sm text-charcoal-700 font-medium mb-1">Jantar (19h)</p>
+                                        <p className="text-xs text-charcoal-500">Peixe assado + batata doce + legumes</p>
                                     </div>
                                 </div>
                             </div>

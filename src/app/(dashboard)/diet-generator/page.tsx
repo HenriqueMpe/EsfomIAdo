@@ -68,7 +68,7 @@ export default function DietGeneratorPage() {
                                     value={selectedPatientId || ''}
                                     onChange={(e) => setSelectedPatientId(e.target.value ? parseInt(e.target.value) : null)}
                                 >
-                                    <option value="">Selecione um paciente</option>
+                                    <option value="" disabled>Selecione um paciente</option>
                                     {patients.map(patient => (
                                         <option key={patient.id} value={patient.id}>
                                             {patient.name} - {patient.goal}
