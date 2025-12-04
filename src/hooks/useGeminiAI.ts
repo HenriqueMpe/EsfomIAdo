@@ -82,36 +82,17 @@ export function useGeminiAI() {
     setLoading(true);
 
     try {
-      const prompt = `Voce e um nutricionista profissional. Crie uma dieta detalhada para um paciente com o objetivo de ${patientGoal} e meta de ${calories} calorias diarias.
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ goal: patientGoal, calories })
+      });
 
-Retorne APENAS um JSON no seguinte formato (sem markdown, sem explicacoes):
-{
-  "name": "Nome da Dieta",
-  "calories": ${calories},
-  "meals": [
-    {
-      "name": "Cafe da Manha",
-      "items": ["item 1", "item 2", "item 3"]
-    },
-    {
-      "name": "Almoco",
-      "items": ["item 1", "item 2", "item 3"]
-    },
-    {
-      "name": "Lanche da Tarde",
-      "items": ["item 1", "item 2"]
-    },
-    {
-      "name": "Jantar",
-      "items": ["item 1", "item 2", "item 3"]
-    }
-  ]
-}`;
+      if (!response.ok) {
+        throw new Error('Failed to generate diet');
+      }
 
-      const response = await callGeminiAPI(prompt);
-      const cleanResponse = response.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-      const diet = JSON.parse(cleanResponse);
-
+      const diet = await response.json();
       setLoading(false);
       return diet;
 
